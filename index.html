@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>开店神算子 - 开店老板的财务小工具</title>
+    <title>Shopkeeper Calculator - Financial Tool for Small Business Owners</title>
     <style>
         * {
             margin: 0;
@@ -294,6 +294,21 @@
             color: #595959;
         }
         
+        .currency-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+        }
+        
+        .currency-selector select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #d9d9d9;
+            background-color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        
         @media (max-width: 768px) {
             .functions-container {
                 grid-template-columns: 1fr;
@@ -302,111 +317,130 @@
             .header h1 {
                 font-size: 2rem;
             }
+            
+            .currency-selector {
+                position: static;
+                margin-top: 15px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
+        <div class="currency-selector">
+            <select id="currency-select" onchange="changeCurrency()">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="JPY">JPY (¥)</option>
+                <option value="CNY" selected>CNY (¥)</option>
+                <option value="AUD">AUD ($)</option>
+                <option value="CAD">CAD ($)</option>
+                <option value="KRW">KRW (₩)</option>
+                <option value="INR">INR (₹)</option>
+            </select>
+        </div>
         <div class="header-content">
-            <h1>开店神算子</h1>
-            <p class="subtitle">为开店老板打造的智能财务决策工具</p>
-            <p class="tagline">精准测算 · 风险评估 · 科学决策</p>
+            <h1>Shopkeeper Calculator</h1>
+            <p class="subtitle">Smart financial decision tool for small business owners</p>
+            <p class="tagline">Accurate calculations · Risk assessment · Scientific decisions</p>
         </div>
     </div>
     
     <div class="functions-container">
-        <!-- 回本周期计算 -->
+        <!-- Payback Period Calculator -->
         <div class="function-card">
             <div class="card-header">
                 <div class="card-icon">1</div>
-                <h2 class="card-title">回本周期测算</h2>
+                <h2 class="card-title">Payback Period Calculator</h2>
             </div>
             <div class="input-group">
-                <label for="total-investment">总投资金额（元）</label>
-                <input type="number" id="total-investment" placeholder="输入您的总投资金额" value="200000">
+                <label for="total-investment">Total Investment (<span class="currency-symbol">CNY</span>)</label>
+                <input type="number" id="total-investment" placeholder="Enter your total investment amount" value="200000">
             </div>
             <div class="input-group">
-                <label for="monthly-cashflow">月均净利润（元）</label>
-                <input type="number" id="monthly-cashflow" placeholder="输入预计平均月净利润" value="6000">
+                <label for="monthly-cashflow">Average Monthly Net Profit (<span class="currency-symbol">CNY</span>)</label>
+                <input type="number" id="monthly-cashflow" placeholder="Enter estimated average monthly profit" value="6000">
             </div>
-            <button class="btn" onclick="calculatePaybackPeriod()">计算回本周期</button>
+            <button class="btn" onclick="calculatePaybackPeriod()">Calculate Payback Period</button>
             <div class="result-display" id="payback-result">
-                <p>请填写数值后进行计算</p>
+                <p>Please enter values to calculate</p>
             </div>
             <div class="calculator-explanation">
-                <p>回本周期是衡量投资回收速度的指标。回本周期越长，资金占用时间越长，投资风险越高。</p>
+                <p>Payback period measures how quickly an investment can be recovered. Longer payback periods mean higher capital risk.</p>
             </div>
         </div>
         
-        <!-- 投资回报率计算 -->
+        <!-- ROI Calculator -->
         <div class="function-card">
             <div class="card-header">
                 <div class="card-icon">2</div>
-                <h2 class="card-title">投资回报率测算</h2>
+                <h2 class="card-title">Return on Investment (ROI)</h2>
             </div>
             <div class="input-group">
-                <label for="irr-investment">总投资金额（元）</label>
-                <input type="number" id="irr-investment" placeholder="输入您的总投资金额" value="200000">
+                <label for="irr-investment">Total Investment (<span class="currency-symbol">CNY</span>)</label>
+                <input type="number" id="irr-investment" placeholder="Enter your total investment amount" value="200000">
             </div>
             <div class="input-group">
-                <label for="irr-cashflow">月均净利润（元）</label>
-                <input type="number" id="irr-cashflow" placeholder="输入预计平均月净利润" value="6000">
+                <label for="irr-cashflow">Average Monthly Net Profit (<span class="currency-symbol">CNY</span>)</label>
+                <input type="number" id="irr-cashflow" placeholder="Enter estimated average monthly profit" value="6000">
             </div>
             <div class="input-group">
-                <label for="period">预计经营时间（月）</label>
-                <input type="number" id="period" placeholder="输入计划运营时间" value="60">
+                <label for="period">Business Duration (months)</label>
+                <input type="number" id="period" placeholder="Enter planned operation period" value="60">
             </div>
-            <button class="btn" onclick="calculateIRR()">计算投资回报率</button>
+            <button class="btn" onclick="calculateIRR()">Calculate ROI</button>
             <div class="result-display" id="irr-result">
-                <p>请填写数值后进行计算</p>
+                <p>Please enter values to calculate</p>
             </div>
             <div class="calculator-explanation">
-                <p>内部收益率是使投资现值等于支出现值的折现率，反映投资效率。一般要求IRR高于15%才考虑投资。</p>
+                <p>Internal Rate of Return (IRR) is the discount rate that makes NPV zero. Generally, projects with IRR above 15% are considered.</p>
             </div>
         </div>
         
-        <!-- 项目价值计算 -->
+        <!-- Project Value Calculator -->
         <div class="function-card">
             <div class="card-header">
                 <div class="card-icon">3</div>
-                <h2 class="card-title">项目价值计算</h2>
+                <h2 class="card-title">Project Value Calculator</h2>
             </div>
             <div class="input-group">
-                <label for="npv-investment">总投资金额（元）</label>
-                <input type="number" id="npv-investment" placeholder="输入您的总投资金额" value="200000">
+                <label for="npv-investment">Total Investment (<span class="currency-symbol">CNY</span>)</label>
+                <input type="number" id="npv-investment" placeholder="Enter your total investment amount" value="200000">
             </div>
             <div class="input-group">
-                <label for="npv-cashflow">月均净利润（元）</label>
-                <input type="number" id="npv-cashflow" placeholder="输入预计平均月净利润" value="6000">
+                <label for="npv-cashflow">Average Monthly Net Profit (<span class="currency-symbol">CNY</span>)</label>
+                <input type="number" id="npv-cashflow" placeholder="Enter estimated average monthly profit" value="6000">
             </div>
             <div class="input-group">
-                <label for="npv-period">预计经营时间（月）</label>
-                <input type="number" id="npv-period" placeholder="输入计划运营时间" value="60">
+                <label for="npv-period">Business Duration (months)</label>
+                <input type="number" id="npv-period" placeholder="Enter planned operation period" value="60">
             </div>
             <div class="input-group">
-                <label for="return-rate">期望年回报率（%）</label>
-                <input type="number" id="return-rate" placeholder="输入您的期望回报率" value="10">
+                <label for="return-rate">Expected Annual Return Rate (%)</label>
+                <input type="number" id="return-rate" placeholder="Enter your expected return rate" value="10">
             </div>
-            <button class="btn" onclick="calculateNPV()">计算项目价值</button>
-            <button class="btn btn-save" onclick="saveProject()">保存项目数据</button>
+            <button class="btn" onclick="calculateNPV()">Calculate Project Value</button>
+            <button class="btn btn-save" onclick="saveProject()">Save Project Data</button>
             <div class="result-display" id="npv-result">
-                <p>请填写数值后进行计算</p>
+                <p>Please enter values to calculate</p>
             </div>
             <div class="calculator-explanation">
-                <p>净现值考虑资金时间价值，评估项目盈利能力。正值表示项目值得投资，负值提示风险较高。</p>
+                <p>Net Present Value (NPV) considers time value of money. Positive NPV means the project is worth investing.</p>
             </div>
         </div>
         
-        <!-- 神算子综合评估 -->
+        <!-- Risk Assessment -->
         <div class="function-card">
             <div class="card-header">
                 <div class="card-icon">4</div>
-                <h2 class="card-title">神算子风险评估</h2>
+                <h2 class="card-title">Risk Assessment</h2>
             </div>
             <div class="result-display">
-                <p>完成以上三项计算后，自动生成风险评估报告</p>
+                <p>Complete the above calculations to generate risk assessment report</p>
                 <div id="evaluation-result">
-                    <p class="result-highlight">等待数据输入...</p>
+                    <p class="result-highlight">Waiting for data input...</p>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="risk-bar" style="width: 0%;">
@@ -414,42 +448,86 @@
                     </div>
                 </div>
                 <div class="result-explanation" id="risk-description">
-                    基于您提供的财务数据进行风险分析，综合评估回本周期、投资回报率和项目价值等核心指标。
+                    Based on your financial data, we analyze key metrics including payback period, ROI and project value.
                 </div>
                 <div class="recommendation" id="recommendation">
-                    风险评估完成后，将显示具体建议
+                    Specific recommendations will be shown after risk assessment
                 </div>
             </div>
         </div>
     </div>
     
     <div class="warning-box">
-        <h3>重要风险提示</h3>
-        <p><span class="risk-highlight">创业有风险，投资需谨慎！</span> 本工具测算结果仅基于您提供的数据和算法模型，仅供初步参考。</p>
-        <p>实际经营结果受多种因素影响，包括但不限于：市场竞争状况、经营管理能力、经济环境变化、原材料价格波动、消费趋势改变等不可控因素。</p>
+        <h3>Important Risk Notice</h3>
+        <p><span class="risk-highlight">Business involves risks, investment requires caution!</span> The calculation results are based on your input data and algorithm models, for reference only.</p>
+        <p>Actual business results are affected by various factors including: market competition, management capability, economic environment, material price fluctuations, consumer trends, etc.</p>
     </div>
     
     <div class="footer">
-        <p>开发者：Woody & 杨夏 | 开店神算子 v1.1</p>
-        <p>© 2023 开店神算子 - 让开店决策更科学</p>
+        <p>Developers: Woody & Yang Xia | Shopkeeper Calculator v1.1</p>
+        <p>© 2023 Shopkeeper Calculator - Make business decisions smarter</p>
     </div>
 
     <script>
-        // 保存项目数据的数组
+        // Currency settings
+        let currentCurrency = "CNY";
+        const currencySymbols = {
+            "USD": "$",
+            "EUR": "€",
+            "GBP": "£",
+            "JPY": "¥",
+            "CNY": "¥",
+            "AUD": "$",
+            "CAD": "$",
+            "KRW": "₩",
+            "INR": "₹"
+        };
+        
+        // Save project data array
         let savedProjects = JSON.parse(localStorage.getItem('shopkeeper_projects')) || [];
         
-        // 计算回本周期
+        // Change currency function
+        function changeCurrency() {
+            const select = document.getElementById('currency-select');
+            currentCurrency = select.value;
+            
+            // Update all currency symbols on the page
+            document.querySelectorAll('.currency-symbol').forEach(el => {
+                el.textContent = currentCurrency;
+            });
+            
+            // Update placeholders with new currency
+            document.getElementById('total-investment').placeholder = `Enter your total investment amount (${currentCurrency})`;
+            document.getElementById('monthly-cashflow').placeholder = `Enter estimated average monthly profit (${currentCurrency})`;
+            document.getElementById('irr-investment').placeholder = `Enter your total investment amount (${currentCurrency})`;
+            document.getElementById('irr-cashflow').placeholder = `Enter estimated average monthly profit (${currentCurrency})`;
+            document.getElementById('npv-investment').placeholder = `Enter your total investment amount (${currentCurrency})`;
+            document.getElementById('npv-cashflow').placeholder = `Enter estimated average monthly profit (${currentCurrency})`;
+            
+            // Recalculate if there are existing results
+            if (document.getElementById('payback-result').innerHTML !== '<p>Please enter values to calculate</p>') {
+                calculatePaybackPeriod();
+            }
+            if (document.getElementById('irr-result').innerHTML !== '<p>Please enter values to calculate</p>') {
+                calculateIRR();
+            }
+            if (document.getElementById('npv-result').innerHTML !== '<p>Please enter values to calculate</p>') {
+                calculateNPV();
+            }
+        }
+        
+        // Calculate payback period
         function calculatePaybackPeriod() {
             const totalInvestment = parseFloat(document.getElementById('total-investment').value);
             const monthlyCashflow = parseFloat(document.getElementById('monthly-cashflow').value);
             
             if (isNaN(totalInvestment) || isNaN(monthlyCashflow)) {
-                alert("请输入有效的数值");
+                alert("Please enter valid numbers");
                 return;
             }
             
             if (totalInvestment <= 0 || monthlyCashflow <= 0) {
-                alert("投资金额和月净利润必须大于0");
+                alert("Investment and monthly profit must be greater than 0");
                 return;
             }
             
@@ -457,20 +535,20 @@
             const years = Math.floor(months / 12);
             const remainingMonths = Math.ceil(months % 12);
             
-            let result = `您的投资大约需要`;
+            let result = `Your investment will pay back in approximately`;
             
             if (years > 0) {
-                result += ` <span class="result-highlight">${years}年</span>`;
+                result += ` <span class="result-highlight">${years} year${years > 1 ? 's' : ''}</span>`;
                 if (remainingMonths > 0) {
-                    result += `和<span class="result-highlight">${remainingMonths}个月</span>回本`;
+                    result += ` and <span class="result-highlight">${remainingMonths} month${remainingMonths > 1 ? 's' : ''}</span>`;
                 }
             } else {
-                result += `<span class="result-highlight">${remainingMonths}个月</span>回本`;
+                result += ` <span class="result-highlight">${remainingMonths} month${remainingMonths > 1 ? 's' : ''}</span>`;
             }
             
             if (months > 36) {
                 result += `<p class="recommendation" style="border-color:#ff4d4f;background:#fff1f0;margin-top:15px;">
-                            <strong>风险提示：</strong> 回本周期超过3年，存在较大风险。建议重新评估项目可行性，或采取缩短回本周期的经营策略。
+                            <strong>Risk Warning:</strong> Payback period exceeds 3 years, indicating high risk. Consider revising your business model.
                            </p>`;
             }
             
@@ -478,9 +556,9 @@
             updateEvaluation();
         }
         
-        // 专业IRR计算函数（支持每月现金流）
+        // Professional IRR calculation (supports monthly cash flow)
         function calculateAccurateIRR(investment, cashflows) {
-            // 精度设置
+            // Precision settings
             const precision = 0.00001;
             const maxIterations = 1000;
             
@@ -492,15 +570,15 @@
                 irr = (lowerBound + upperBound) / 2;
                 let npv = -investment;
                 
-                // 计算当前irr对应的NPV
+                // Calculate NPV for current IRR
                 cashflows.forEach((cf, t) => {
-                    npv += cf / Math.pow(1 + irr, t + 1); // t+1因为第一期是第1个月
+                    npv += cf / Math.pow(1 + irr, t + 1); // t+1 because first period is month 1
                 });
                 
-                // 判断是否收敛
+                // Check convergence
                 if (Math.abs(npv) < precision) break;
                 
-                // 调整边界
+                // Adjust bounds
                 if (npv > 0) {
                     lowerBound = irr;
                 } else {
@@ -508,56 +586,56 @@
                 }
             }
             
-            // 转换为年化IRR
+            // Convert to annualized IRR
             return (Math.pow(1 + irr, 12) - 1) * 100;
         }
 
-        // 更新后的IRR计算函数
+        // Updated IRR calculation
         function calculateIRR() {
             const investment = parseFloat(document.getElementById('irr-investment').value);
             const monthlyCashflow = parseFloat(document.getElementById('irr-cashflow').value);
             const period = parseInt(document.getElementById('period').value);
             
-            // 验证输入
+            // Validate input
             if (isNaN(investment) || isNaN(monthlyCashflow) || isNaN(period)) {
-                alert("请输入有效的数值");
+                alert("Please enter valid numbers");
                 return;
             }
             
             if (investment <= 0 || monthlyCashflow <= 0 || period <= 0) {
-                alert("所有输入值必须大于0");
+                alert("All values must be greater than 0");
                 return;
             }
             
-            // 构建现金流数组（首期投资+每月收益）
+            // Build cash flow array (initial investment + monthly returns)
             const cashflows = Array(period).fill(monthlyCashflow);
             
-            // 计算精确IRR
+            // Calculate precise IRR
             const accurateIRR = calculateAccurateIRR(investment, cashflows);
             
-            // 结果显示
+            // Display results
             let color, message, riskNote;
             
             if (accurateIRR < 0) {
                 color = "#ff4d4f";
-                message = "无法回本";
+                message = "Cannot break even";
                 riskNote = `<p class="recommendation" style="border-color:#ff4d4f;background:#fff1f0;">
-                           <strong>严重风险：</strong> 投资回报率为负，表明项目无法收回成本
+                           <strong>High Risk:</strong> Negative ROI indicates the project cannot recover costs
                            </p>`;
             } else if (accurateIRR < 15) {
                 color = "#ff4d4f";
-                message = "回报率偏低";
+                message = "Low return rate";
                 riskNote = `<p class="recommendation" style="border-color:#ff4d4f;background:#fff1f0;">
-                           <strong>风险提示：</strong> 年化回报率低于15%（通常商业投资最低要求）
+                           <strong>Risk Warning:</strong> Annualized ROI below 15% (typical minimum requirement)
                            </p>`;
             } else if (accurateIRR < 30) {
                 color = "#faad14";
-                message = "回报率良好";
+                message = "Good return rate";
             } else {
                 color = "#52c41a";
-                message = "回报率优异";
+                message = "Excellent return rate";
                 riskNote = `<p class="recommendation">
-                           <strong>注意：</strong> 异常高的回报率可能意味着预测过于乐观或风险被低估
+                           <strong>Note:</strong> Exceptionally high ROI may indicate overly optimistic projections
                            </p>`;
             }
             
@@ -565,54 +643,54 @@
                            <p>${message}</p>
                            ${riskNote || ''}
                            <p style="font-size:0.8rem;color:#666;margin-top:10px;">
-                           基于${period}个月现金流计算</p>`;
+                           Based on ${period} months cash flow</p>`;
             
             document.getElementById('irr-result').innerHTML = result;
             updateEvaluation();
         }
         
-        // 修正后的NPV计算函数（与IRR模块保持相同精度）
+        // Updated NPV calculation (consistent with IRR module)
         function calculateNPV() {
             const investment = parseFloat(document.getElementById('npv-investment').value);
             const cashflow = parseFloat(document.getElementById('npv-cashflow').value);
             const period = parseInt(document.getElementById('npv-period').value);
             const annualReturnRate = parseFloat(document.getElementById('return-rate').value);
             
-            // 输入验证
+            // Input validation
             if (isNaN(investment) || isNaN(cashflow) || isNaN(period) || isNaN(annualReturnRate)) {
-                alert("请输入有效的数值");
+                alert("Please enter valid numbers");
                 return;
             }
             
             if (investment <= 0 || cashflow <= 0 || period <= 0 || annualReturnRate <= 0) {
-                alert("所有输入值必须大于0");
+                alert("All values must be greater than 0");
                 return;
             }
 
-            // 将年回报率转换为月折现率（与IRR计算保持相同处理方式）
+            // Convert annual return rate to monthly discount rate
             const monthlyRate = annualReturnRate / 100 / 12;
             
-            // 计算NPV（与IRR相同的现金流处理逻辑）
+            // Calculate NPV (same cash flow logic as IRR)
             let npv = -investment;
             for (let t = 1; t <= period; t++) {
                 npv += cashflow / Math.pow(1 + monthlyRate, t);
             }
 
-            // 结果展示（保持与IRR模块相同的风格）
+            // Display results (consistent with IRR module style)
             let result, message, riskNote;
             
             if (npv > 0) {
-                result = `<span class="result-highlight" style="color:#52c41a;">+${npv.toFixed(0)}元</span>`;
-                message = "项目价值大于投资成本";
+                result = `<span class="result-highlight" style="color:#52c41a;">+${npv.toFixed(0)} ${currentCurrency}</span>`;
+                message = "Project value exceeds investment cost";
             } else if (npv < 0) {
-                result = `<span class="result-highlight" style="color:#ff4d4f;">${npv.toFixed(0)}元</span>`;
-                message = "项目价值低于投资成本";
+                result = `<span class="result-highlight" style="color:#ff4d4f;">${npv.toFixed(0)} ${currentCurrency}</span>`;
+                message = "Project value below investment cost";
                 riskNote = `<p class="recommendation" style="border-color:#ff4d4f;background:#fff1f0;">
-                           <strong>风险提示：</strong> 项目净现值为负，需谨慎评估
+                           <strong>Risk Warning:</strong> Negative NPV requires careful consideration
                            </p>`;
             } else {
-                result = `<span class="result-highlight">0元</span>`;
-                message = "项目价值等于投资成本";
+                result = `<span class="result-highlight">0 ${currentCurrency}</span>`;
+                message = "Project value equals investment cost";
             }
             
             document.getElementById('npv-result').innerHTML = `
@@ -620,33 +698,34 @@
                 <p>${message}</p>
                 ${riskNote || ''}
                 <p style="font-size:0.8rem;color:#666;margin-top:10px;">
-                基于${period}个月现金流计算，期望年回报率${annualReturnRate}%</p>`;
+                Based on ${period} months cash flow, expected annual return ${annualReturnRate}%</p>`;
             
             updateEvaluation();
         }
         
-        // 保存项目数据
+        // Save project data
         function saveProject() {
             const project = {
-                name: prompt("请为该项目命名：", "我的开店项目") || "未命名项目",
+                name: prompt("Name your project:", "My Business Project") || "Unnamed Project",
                 investment: document.getElementById('npv-investment').value,
                 cashflow: document.getElementById('npv-cashflow').value,
                 period: document.getElementById('npv-period').value,
                 returnRate: document.getElementById('return-rate').value,
                 timestamp: new Date().toLocaleString(),
-                npv: calculateCurrentNPV()
+                npv: calculateCurrentNPV(),
+                currency: currentCurrency
             };
             
             if (project.investment && project.cashflow && project.period) {
                 savedProjects.push(project);
                 localStorage.setItem('shopkeeper_projects', JSON.stringify(savedProjects));
-                alert(`项目【${project.name}】已保存！您已保存 ${savedProjects.length} 个项目`);
+                alert(`Project 【${project.name}】 saved! You have ${savedProjects.length} saved projects`);
             } else {
-                alert("请先完成NPV计算再保存项目");
+                alert("Please complete NPV calculation before saving");
             }
         }
         
-        // 帮助函数：获取当前项目的NPV
+        // Helper function: Get current project NPV
         function calculateCurrentNPV() {
             const investment = parseFloat(document.getElementById('npv-investment').value) || 0;
             const cashflow = parseFloat(document.getElementById('npv-cashflow').value) || 0;
@@ -663,43 +742,43 @@
             return npv;
         }
         
-        // 更新综合评估
+        // Update comprehensive evaluation
         function updateEvaluation() {
             const paybackElement = document.getElementById('payback-result');
             const irrElement = document.getElementById('irr-result');
             const npvElement = document.getElementById('npv-result');
             
-            // 检查是否有足够数据
-            const hasPayback = paybackElement.innerHTML.includes('回本');
+            // Check if we have enough data
+            const hasPayback = paybackElement.innerHTML.includes('pay back');
             const hasIRR = irrElement.innerHTML.includes('%');
-            const hasNPV = npvElement.innerHTML.includes('元');
+            const hasNPV = npvElement.innerHTML.includes(currentCurrency);
             
             if (!hasPayback && !hasIRR && !hasNPV) {
                 document.getElementById('risk-label').textContent = "";
                 return;
             }
             
-            // 风险评估逻辑
-            let riskScore = 50; // 基础分数50分（满分100，分值越高风险越低）
-            let riskLevel = "中风险";
+            // Risk assessment logic
+            let riskScore = 50; // Base score 50 (max 100, higher score = lower risk)
+            let riskLevel = "Medium Risk";
             let riskBarColor = "#faad14";
             let description = "";
             let recommendation = "";
             
-            // 根据已有数据进行评分
+            // Score based on available data
             if (hasPayback) {
                 try {
                     const paybackText = paybackElement.textContent;
                     let months = 0;
                     
-                    if (paybackText.includes('年') && paybackText.includes('个月')) {
-                        const years = parseInt(paybackText.match(/(\d+)年/)[1]);
-                        const m = parseInt(paybackText.match(/(\d+)个月/)[1]);
+                    if (paybackText.includes('year') && paybackText.includes('month')) {
+                        const years = parseInt(paybackText.match(/(\d+) year/)[1]);
+                        const m = parseInt(paybackText.match(/(\d+) month/)[1]);
                         months = years * 12 + m;
-                    } else if (paybackText.includes('年')) {
-                        months = parseInt(paybackText.match(/(\d+)年/)[1]) * 12;
+                    } else if (paybackText.includes('year')) {
+                        months = parseInt(paybackText.match(/(\d+) year/)[1]) * 12;
                     } else {
-                        months = parseInt(paybackText.match(/(\d+)个月/)[1]);
+                        months = parseInt(paybackText.match(/(\d+) month/)[1]);
                     }
                     
                     if (months < 12) riskScore += 25;
@@ -732,43 +811,43 @@
                 }
             }
             
-            // 限制分数范围
+            // Limit score range
             riskScore = Math.max(10, Math.min(riskScore, 95));
             
-            // 确定风险级别和建议
+            // Determine risk level and recommendations
             if (riskScore >= 75) {
-                riskLevel = "低风险";
+                riskLevel = "Low Risk";
                 riskBarColor = "#52c41a";
-                description = "项目在财务指标上表现良好，具有较短时间内回本和相对可观的投资回报潜力。";
-                recommendation = "项目具有较好的财务可行性，建议进行后续深入的市场调研和准备工作。";
+                description = "The project shows good financial metrics with reasonable payback period and attractive ROI potential.";
+                recommendation = "The project appears financially viable. Proceed with detailed market research and preparation.";
             } 
             else if (riskScore >= 55) {
-                riskLevel = "中风险";
+                riskLevel = "Medium Risk";
                 riskBarColor = "#faad14";
-                description = "项目在财务指标上表现中等，部分关键指标（如回本周期或回报率）存在一定不足。";
-                recommendation = "项目具有一定可行性但存在风险，建议重新审视商业模式并优化成本结构。";
+                description = "The project shows average financial metrics with some weaknesses in key indicators.";
+                recommendation = "The project has potential but carries risks. Consider revising your business model and cost structure.";
             } 
             else if (riskScore >= 35) {
-                riskLevel = "中高风险";
+                riskLevel = "Medium-High Risk";
                 riskBarColor = "#ffa940";
-                description = "项目的关键财务指标存在明显短板，可能导致投资回报不达预期或资金回收困难。";
-                recommendation = "项目存在显著风险，建议谨慎考虑。若决定推进，需大幅优化经营策略。";
+                description = "The project shows concerning financial metrics that may lead to unsatisfactory returns.";
+                recommendation = "The project carries significant risks. Carefully reconsider or substantially revise your approach.";
             } 
             else {
-                riskLevel = "高风险";
+                riskLevel = "High Risk";
                 riskBarColor = "#ff4d4f";
-                description = "项目的各项财务指标均表现不佳，面临投资无法回收的严重风险。";
-                recommendation = "强烈建议放弃该项目或彻底重新设计商业模式！";
+                description = "The project shows poor financial metrics across all indicators, with high risk of investment loss.";
+                recommendation = "Strongly recommend abandoning this project or completely redesigning your business model!";
             }
             
-            // 更新显示
+            // Update display
             document.getElementById("evaluation-result").innerHTML = 
                 `<p class="result-highlight" style="color:${riskBarColor}">${riskLevel}</p>
-                 <p>项目风险指数：${riskScore}（满分100，分值越低风险越高）</p>`;
+                 <p>Project Risk Index: ${riskScore} (max 100, lower score = higher risk)</p>`;
             
             document.getElementById("risk-bar").style.width = `${riskScore}%`;
             document.getElementById("risk-bar").style.background = riskBarColor;
-            document.getElementById("risk-label").textContent = `${riskScore}分`;
+            document.getElementById("risk-label").textContent = `${riskScore} pts`;
             document.getElementById("risk-label").style.color = "white";
             
             document.getElementById("risk-description").innerHTML = description;
