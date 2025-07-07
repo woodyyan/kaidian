@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopkeeper Calculator - Financial Tool for Small Business Owners</title>
+    <title>Store Opening Cost Calculator | Accurate Retail Business ROI Analysis</title>
+    <meta name="description" content="Free online tool to calculate store opening costs, break-even point and ROI. Perfect for retail, ecommerce and cross-border shop owners planning their business finances.">
+    <meta name="keywords" content="store opening cost calculator, retail business ROI, shop profitability analysis, ecommerce startup costs, break-even calculator, retail investment analysis">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -324,6 +328,156 @@
                 text-align: center;
             }
         }
+        .product-features {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-features:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+        
+        .product-features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 0 0 0 100%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .product-features h2 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .product-features h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        @media (min-width: 640px) {
+            .feature-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .feature-item {
+            display: flex;
+            padding: 20px;
+            border-radius: 16px;
+            background-color: #ffffff;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+        }
+        
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(#3b82f6, #60a5fa);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-item:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            min-width: 50px;
+            height: 50px;
+            background-color: #e0edff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #3b82f6;
+            font-size: 20px;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+            transition: background-color 0.3s ease;
+        }
+        
+        .feature-item:hover .feature-icon {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .feature-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .feature-content p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            background-color: #e0edff;
+            z-index: -1;
+            transition: height 0.3s ease;
+        }
+        
+        .feature-item:hover .highlight::after {
+            height: 70%;
+        }
     </style>
 </head>
 <body>
@@ -342,8 +496,8 @@
             </select>
         </div>
         <div class="header-content">
-            <h1>Shopkeeper Calculator</h1>
-            <p class="subtitle">Smart financial decision tool for small business owners</p>
+            <h1>Retail Store Opening Cost Calculator</h1>
+            <p class="subtitle">Accurately Estimate Your Shop Startup Expenses & Profit Potential</p>
             <p class="tagline">Accurate calculations · Risk assessment · Scientific decisions</p>
         </div>
     </div>
@@ -457,6 +611,57 @@
         </div>
     </div>
     
+    <div class="product-features">
+        <h2>Key Features of Our Store Cost Calculator</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fa fa-calculator"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Comprehensive cost analysis</h3>
+                    <p>From rental deposits to inventory and staffing</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fa fa-globe"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Country-specific expense data</h3>
+                    <p>Accurate retail cost benchmarks for 50+ markets</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fa fa-line-chart"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>ROI projection models</h3>
+                    <p>Visualize your shop's profit potential over 1-5 years</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fa fa-balance-scale"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Break-even point calculator</h3>
+                    <p>Know exactly when your store becomes profitable</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="feature-content">
+                    <h3>Ecommerce startup cost estimator</h3>
+                    <p>Perfect for cross-border online shops</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="warning-box">
         <h3>Important Risk Notice</h3>
         <p><span class="risk-highlight">Business involves risks, investment requires caution!</span> The calculation results are based on your input data and algorithm models, for reference only.</p>
